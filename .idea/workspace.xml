@@ -5,7 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a26770a6-ac12-4ad1-aa65-9e093a8f5553" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/addressbook-web-tests/src/test/java/ru/stqa/pft/addressbook/GroupData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/addressbook-web-tests/src/test/java/ru/stqa/pft/addressbook/NewContactData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/addressbook-web-tests/src/test/java/ru/stqa/pft/addressbook/GroupCreationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/addressbook-web-tests/src/test/java/ru/stqa/pft/addressbook/GroupCreationTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -129,13 +130,16 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2GJlOzsUu1uRgSvhEF4wBOg7FPi" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "last_opened_file_path": "C:/Users/MLinnik/Documents/GitHub/java_pft/addressbook-web-tests/build.gradle",
@@ -145,20 +149,7 @@
     "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle"
   }
 }]]></component>
-  <component name="RunManager" selected="TestNG.GroupCreationTests">
-    <configuration name="PointDistance" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="ru.stqa.pft.sandbox.PointDistance" />
-      <module name="sandbox.main" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ru.stqa.pft.sandbox.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="TestNG.NewContact">
     <configuration default="true" type="JetRunConfigurationType">
       <module name="java_pft" />
       <method v="2">
@@ -182,6 +173,23 @@
       </extension>
       <option name="PACKAGE_NAME" value="ru.stqa.pft.addressbook" />
       <option name="MAIN_CLASS_NAME" value="ru.stqa.pft.addressbook.GroupCreationTests" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="NewContact" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="addressbook-web-tests.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ru.stqa.pft.addressbook.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ru.stqa.pft.addressbook" />
+      <option name="MAIN_CLASS_NAME" value="ru.stqa.pft.addressbook.NewContact" />
       <option name="TEST_OBJECT" value="CLASS" />
       <properties />
       <listeners />
@@ -244,11 +252,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="TestNG.NewContact" />
         <item itemvalue="TestNG.GroupCreationTests" />
         <item itemvalue="TestNG.PointDistanceTests" />
         <item itemvalue="TestNG.PointDistanceTests.testDistanceNegativeValues" />
         <item itemvalue="TestNG.PointDistanceTests.testDistance" />
-        <item itemvalue="Application.PointDistance" />
       </list>
     </recent_temporary>
   </component>
