@@ -22,7 +22,6 @@ public class ApplicationManager {
     }
 
     public void init() {
-        Browser browser = Browser.EDGE;
         if (browser == Browser.CHROME) {
             wd = new ChromeDriver();
         } else if (browser == Browser.FIREFOX) {
@@ -30,7 +29,7 @@ public class ApplicationManager {
         } else {
             wd = new EdgeDriver();
         }
-        wd.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+        wd.manage().timeouts().implicitlyWait(Duration.ofSeconds(0));
         wd.get("http://localhost/addressbook/");
         groupHelper = new GroupHelper(wd);
         navigationHelper = new NavigationHelper(wd);
