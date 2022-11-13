@@ -29,4 +29,24 @@ public class ContactHelper extends BaseHelper {
         type(By.name("work"), newContactData.getWorkphone());
         type(By.name("fax"), newContactData.getFaxphone());
     }
+
+    public void initContactModification() {
+        click(By.xpath("//img[@alt='Edit']"));
+    }
+
+    public void submitContactModification() {
+        click(By.xpath("//div[@id='content']/form/input[22]"));
+    }
+
+    public void deleteSelectContact() {
+        click(By.xpath("//input[@value='Delete']"));
+    }
+
+    public void selectContact() {
+        click(By.id("MassCB"));
+    }
+
+    public void submitDeletionContact() {
+        wd.switchTo().alert().accept();
+    }
 }
