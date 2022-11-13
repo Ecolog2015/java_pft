@@ -21,7 +21,6 @@ public class ApplicationManager {
         this.browser = browser;
     }
 
-
     public void init() {
         Browser browser = Browser.EDGE;
         if (browser == Browser.CHROME) {
