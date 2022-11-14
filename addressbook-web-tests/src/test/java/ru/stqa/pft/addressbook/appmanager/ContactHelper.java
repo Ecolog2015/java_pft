@@ -52,7 +52,7 @@ public class ContactHelper extends BaseHelper {
     }
 
     public void selectContact() {
-        click(By.id("MassCB"));
+        click(By.name("selected[]"));
     }
 
     public void submitDeletionContact() {
