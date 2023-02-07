@@ -2,9 +2,12 @@ package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ContactHelper extends BaseHelper {
     public ContactHelper(WebDriver wd) {
@@ -38,20 +41,19 @@ public class ContactHelper extends BaseHelper {
         } else Assert.assertFalse(isElementPresent(By.name("new_group")));
     }
 
-    public void initContactModification() {
-        click(By.xpath("//img[@alt='Edit']"));
+    public void initContactModification(int index) {
+        wd.findElements(By.xpath("//img[@alt='Edit']")).get(index).click();
     }
-
     public void submitContactModification() {
-        click(By.xpath("//div[@id='content']/form/input[22]"));
+        click(By.name("update"));
     }
 
     public void deleteSelectContact() {
         click(By.xpath("//input[@value='Delete']"));
     }
 
-    public void selectContact() {
-        click(By.name("selected[]"));
+    public void selectContact(int index) {
+        wd.findElements(By.name("selected[]")).get(index).click(); //By.xpath("//img[@alt='Edit']")
     }
 
     public void submitDeletionContact() {
@@ -71,5 +73,24 @@ public class ContactHelper extends BaseHelper {
 
     public int getContactCount() {
         return wd.findElements(By.name("entry")).size();
+    }
+
+    public List<ContactData> getContactList() {
+        //список который будем заполнять
+        List<ContactData> contacts = new ArrayList<ContactData>();
+
+        //получаем список объектов
+        List<WebElement> elements = wd.findElements(By.name("entry"));
+
+        //пройти в цикле по элементам (строкам таблицы)
+        for (WebElement element : elements) {
+            //и из каждого получить text:  имя + фамилия контакта
+            List<WebElement> cells = element.findElements(By.tagName("td"));
+            ContactData contact = new ContactData(cells.get(2).getText(), cells.get(1).getText(), null, null, null, null, null,null,null,null,null);
+
+            //добавляем созданный объект в contact
+            contacts.add(contact);
+        }
+        return contacts;
     }
 }
