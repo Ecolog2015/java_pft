@@ -16,7 +16,7 @@ public class ContactHelper extends BaseHelper {
     }
 
     public void submitNewContactCreation() {
-        click(By.xpath("//div[@id='content']/form/input[21]"));
+        click(By.name("submit"));
     }
 
     public void fillNewContactForm(ContactData contactData, boolean creation) {
@@ -32,10 +32,10 @@ public class ContactHelper extends BaseHelper {
         type(By.name("fax"), contactData.getFaxphone());
 
         if (creation) {
-            new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
-        } else {
-            Assert.assertFalse(isElementPresent(By.name("new_group")));
-        }
+            if (isElementPresent(By.name(contactData.getGroup()))) {                                             //пытаемся выбрать из списка групп элемент
+                new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+            } else new Select(wd.findElement(By.name("new_group"))).getFirstSelectedOption();
+        } else Assert.assertFalse(isElementPresent(By.name("new_group")));
     }
 
     public void initContactModification() {
@@ -58,18 +58,14 @@ public class ContactHelper extends BaseHelper {
         wd.switchTo().alert().accept();
     }
 
-    public void createContact(ContactData contact, boolean creation) {
+    public void createContact(ContactData contact) {
         click(By.linkText("add new"));
-        fillNewContactForm((contact), creation);
+        fillNewContactForm((contact), true);
         submitNewContactCreation();
         returnToNewContactPage();
     }
 
     public boolean isThereAContact() {
-        return isElementPresent(By.name("selected[]"));
-    }
-
-    public int getContactCount() {
-        return wd.findElements(By.name("selected[]")).size();
+        return isElementPresent(By.name("selected[]")); //проверка наличия хоть 1 контакта
     }
 }

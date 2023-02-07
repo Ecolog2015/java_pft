@@ -56,7 +56,11 @@ public class GroupHelper extends BaseHelper {
     }
 
     public boolean isThereAGroup() {
-        return isElementPresent(By.name("selected[]"));
+        return isElementPresent(By.name("selected[]")); //проверка наличия хоть 1 группы
+    }
+
+    public boolean theGroupExists() {
+        return isElementPresent(By.name("test1"));
     }
 
     public List<GroupData> getGroupList() {

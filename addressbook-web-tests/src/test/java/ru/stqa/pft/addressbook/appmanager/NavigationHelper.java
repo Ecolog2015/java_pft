@@ -27,10 +27,9 @@ public class NavigationHelper extends BaseHelper {
         }
         click(By.linkText("add new"));
     }
-    public void goToContactPage() {
-        if (isElementPresent(By.tagName("h1"))
-                && wd.findElement(By.tagName("h1")).getText().equals("")
-                && isElementPresent(By.name("submit"))) {
+
+    public void goToHomePage() {
+        if (isElementPresent(By.id("mainntable"))) {
             return;
         }
         click(By.linkText("home"));
