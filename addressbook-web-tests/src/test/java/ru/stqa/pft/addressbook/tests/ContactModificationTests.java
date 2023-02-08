@@ -16,7 +16,7 @@ public class ContactModificationTests extends TestBase {
         if (app.contact().list().size() == 0) {
             app.goTo().groupPage();
             if (!app.group().theGroupExists()) {
-                app.group().create(new GroupData("test1", "test2", "test3"));
+                app.group().create(new GroupData().withName("test1").withHeader("test2").withFooter("test3"));
             }
             app.contact().create(new ContactData("TestName", "TestMiddle", "TestName", "TestNickname", "TestCompany", "TestAddress", "45654", "654645", "456456", "456546", "test1"));
             ;
