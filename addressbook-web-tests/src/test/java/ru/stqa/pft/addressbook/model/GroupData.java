@@ -22,6 +22,8 @@ public class GroupData {
         this.footer = footer;
     }
 
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

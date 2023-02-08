@@ -1,13 +1,28 @@
 package ru.stqa.pft.addressbook.tests;
 
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
+import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.util.Comparator;
 import java.util.List;
 
 public class ContactModificationTests extends TestBase {
+    @BeforeMethod
+    public void ensurePreconditions() {
+        app.getNavigationHelper().goToHomePage();
+        if (!app.getContactHelper().isThereAContact()) {
+            app.getNavigationHelper().goToGroupPage();
+            if (!app.getGroupHelper().theGroupExists()) {
+                app.getGroupHelper().createGroup(new GroupData("test1", "test2", "test3"));
+            }
+            app.getContactHelper().createContact(new ContactData("TestName", "TestMiddle", "TestName", "TestNickname", "TestCompany", "TestAddress", "45654", "654645", "456456", "456546", "test1"));
+            ;
+        }
+    }
+
     @Test
     public void testContactModification() {
         app.getNavigationHelper().goToHomePage();
