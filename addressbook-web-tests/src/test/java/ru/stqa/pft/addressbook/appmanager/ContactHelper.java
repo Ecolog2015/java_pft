@@ -76,19 +76,12 @@ public class ContactHelper extends BaseHelper {
     }
 
     public List<ContactData> getContactList() {
-        //список который будем заполнять
         List<ContactData> contacts = new ArrayList<ContactData>();
-
-        //получаем список объектов
         List<WebElement> elements = wd.findElements(By.name("entry"));
-
-        //пройти в цикле по элементам (строкам таблицы)
         for (WebElement element : elements) {
-            //и из каждого получить text:  имя + фамилия контакта
             List<WebElement> cells = element.findElements(By.tagName("td"));
-            ContactData contact = new ContactData(cells.get(2).getText(), cells.get(1).getText(), null, null, null, null, null,null,null,null,null);
-
-            //добавляем созданный объект в contact
+            int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("id"));
+            ContactData contact = new ContactData(id, cells.get(2).getText(), null, cells.get(1).getText(), null, null, null, null,null,null,null,null);
             contacts.add(contact);
         }
         return contacts;
