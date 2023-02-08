@@ -9,7 +9,7 @@ public class NavigationHelper extends BaseHelper {
         super(wd);
     }
 
-    public void goToGroupPage() {
+    public void groupPage() {
 
         if (isElementPresent(By.tagName("h1"))
                 && wd.findElement(By.tagName("h1")).getText().equals("Groups")
@@ -19,7 +19,7 @@ public class NavigationHelper extends BaseHelper {
         click(By.linkText("groups"));
     }
 
-    public void goToNewContactPage() {
+    public void newContactPage() {
         if (isElementPresent(By.tagName("h1"))
                 && wd.findElement(By.tagName("h1")).getText().equals("Edit / add address book entry")
                 && isElementPresent(By.name("submit"))) {
@@ -28,7 +28,7 @@ public class NavigationHelper extends BaseHelper {
         click(By.linkText("add new"));
     }
 
-    public void goToHomePage() {
+    public void homePage() {
         if (isElementPresent(By.id("mainntable"))) {
             return;
         }

@@ -61,6 +61,11 @@ public class GroupHelper extends BaseHelper {
         submitGroupModification();
         returnToGroupPage();
     }
+    public void delete(int index) {
+        selectGroup(index);
+        deleteSelectGroups();
+        returnToGroupPage();
+    }
 
     public boolean isThereAGroup() {
         return isElementPresent(By.name("selected[]")); //проверка наличия хоть 1 группы
