@@ -13,12 +13,12 @@ public class ContactModificationTests extends TestBase {
     @BeforeMethod
     public void ensurePreconditions() {
         app.goTo().homePage();
-        if (!app.contact().isThereAContact()) {
+        if (app.contact().list().size() == 0) {
             app.goTo().groupPage();
             if (!app.group().theGroupExists()) {
-                app.group().createGroup(new GroupData("test1", "test2", "test3"));
+                app.group().create(new GroupData("test1", "test2", "test3"));
             }
-            app.contact().createContact(new ContactData("TestName", "TestMiddle", "TestName", "TestNickname", "TestCompany", "TestAddress", "45654", "654645", "456456", "456546", "test1"));
+            app.contact().create(new ContactData("TestName", "TestMiddle", "TestName", "TestNickname", "TestCompany", "TestAddress", "45654", "654645", "456456", "456546", "test1"));
             ;
         }
     }
@@ -27,15 +27,15 @@ public class ContactModificationTests extends TestBase {
     public void testContactModification() {
         app.goTo().homePage();
         if (!app.contact().isThereAContact()) {
-            app.contact().createContact(new ContactData("TestName", "TestMiddle", "TestName", "TestNickname", "TestCompany", "TestAddress", "45654", "654645", "456456", "456546", "test1"));
+            app.contact().create(new ContactData("TestName", "TestMiddle", "TestName", "TestNickname", "TestCompany", "TestAddress", "45654", "654645", "456456", "456546", "test1"));
         }
-        List<ContactData> before = app.contact().getContactList();
+        List<ContactData> before = app.contact().list();
         app.contact().initContactModification(before.size() - 1);
         ContactData contact = new ContactData(before.get(before.size() - 1).getId(), "TestName1", "TestMiddle", "TestName1", "TestNickname", "TestCompany", "TestAddress", "45654", "654645", "456456", "456546", null);
         app.contact().fillNewContactForm(contact, false);
         app.contact().submitContactModification();
         app.goTo().homePage();
-        List<ContactData> after = app.contact().getContactList();
+        List<ContactData> after = app.contact().list();
         Assert.assertEquals(after.size(), before.size());
         before.remove(before.size() - 1);
         before.add(contact);
