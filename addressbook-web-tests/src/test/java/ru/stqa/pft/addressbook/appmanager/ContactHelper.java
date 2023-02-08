@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,6 +45,7 @@ public class ContactHelper extends BaseHelper {
     public void initContactModification(int index) {
         wd.findElements(By.xpath("//img[@alt='Edit']")).get(index).click();
     }
+
     public void submitContactModification() {
         click(By.name("update"));
     }
@@ -66,8 +68,9 @@ public class ContactHelper extends BaseHelper {
         submitNewContactCreation();
         returnToNewContactPage();
     }
+
     public void delete(int index) {
-       selectContact(index);
+        selectContact(index);
         deleteSelectContact();
         submitDeletionContact();
     }
@@ -86,8 +89,9 @@ public class ContactHelper extends BaseHelper {
         for (WebElement element : elements) {
             List<WebElement> cells = element.findElements(By.tagName("td"));
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("id"));
-            ContactData contact = new ContactData(id, cells.get(2).getText(), null, cells.get(1).getText(), null, null, null, null,null,null,null,null);
-            contacts.add(contact);
+//            ContactData contact = new ContactData(id, cells.get(2).getText(), null, cells.get(1).getText(), null, null, null, null,null,null,null,null);
+            contacts.add(new ContactData().withId(id).withFirstname(cells.get(2).getText())
+                    .withLastname(cells.get(1).getText()));
         }
         return contacts;
     }
