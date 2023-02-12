@@ -1,11 +1,8 @@
 <configuration>
 
-    //переменная которая содержит текущее время
     <timestamp key="bySecond" datePattern="yyyyMMdd'T'HHmmss"/>
 
-    //конфигурация для добавления в файл
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-        //используем переменную в названии файла bySecond
         <file>test-${bySecond}.log</file>
 
         <!-- set immediateFlush to false for much higher logging throughput -->
@@ -17,7 +14,6 @@
         </encoder>
     </appender>
 
-    //конфигурация файла
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <!-- encoders are assigned the type
              ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
@@ -27,7 +23,6 @@
     </appender>
 
     <root level="debug">
-        //указали что инф-ия будет сохраняться в файл + выводиться на консоль
         <appender-ref ref="FILE" />
         <appender-ref ref="STDOUT" />
     </root>
