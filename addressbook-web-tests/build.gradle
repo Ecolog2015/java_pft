@@ -4,8 +4,8 @@ repositories {
     mavenCentral()
 }
 dependencies {
-    compile 'org.testng:testng:6.9.10'
-    implementation 'org.seleniumhq.selenium:selenium-java:4.5.3'
+    compile 'org.testng:testng:7.5'
+    implementation 'org.seleniumhq.selenium:selenium-java:4.3.0'
     implementation 'org.hamcrest:java-hamcrest:2.0.0.0'
     //библиотека для командной строки
     implementation 'com.beust:jcommander:1.48'
@@ -25,5 +25,12 @@ dependencies {
         useTestNG {
             suites 'src/test/resources/testng-contacts.xml'
         }
+    }
+    if (project.hasProperty('browser')) {
+        systemProperty 'browser', "${browser}"
+    }
 
+    if (project.hasProperty('target')) {
+        systemProperty 'browser', "${browser}"
+    }
 }
