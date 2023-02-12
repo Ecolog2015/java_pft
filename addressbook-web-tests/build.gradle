@@ -14,4 +14,16 @@ dependencies {
     //для json
     implementation 'com.google.code.gson:gson:2.10'
 
+    //указали использовать фреймворк TestNG
+    task testGroups(type: Test) {
+        useTestNG {
+            suites 'src/test/resources/testng-groups.xml'
+        }
+    }
+
+    task testContacts(type: Test) {
+        useTestNG {
+            suites 'src/test/resources/testng-contacts.xml'
+        }
+
 }
