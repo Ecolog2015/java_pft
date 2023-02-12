@@ -5,6 +5,8 @@ import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 
+import java.io.File;
+
 public class BaseHelper {
     protected WebDriver wd;
 
@@ -14,6 +16,13 @@ public class BaseHelper {
 
     protected void click(By locator) {
         wd.findElement(locator).click();
+    }
+
+    protected void attach(By locator, File file) {
+        //если в поле передали null, то поле не заполняем, иначе чистим значением поля и заполняем
+        if (file != null) {
+            wd.findElement(locator).sendKeys(file.getAbsolutePath());
+        }
     }
 
     protected void type(By locator, String text) {

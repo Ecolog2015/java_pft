@@ -39,6 +39,7 @@ public class ContactHelper extends BaseHelper {
         type(By.name("mobile"), contactData.getMobilephone());
         type(By.name("work"), contactData.getWorkphone());
         type(By.name("fax"), contactData.getFaxphone());
+        attach(By.name("photo"),contactData.getPhoto());
 
         if (creation) {
             if (isElementPresent(By.name(contactData.getGroup()))) {                                             //пытаемся выбрать из списка групп элемент

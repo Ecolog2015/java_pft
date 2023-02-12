@@ -6,6 +6,7 @@ import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
 
+import java.io.File;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
@@ -27,8 +28,9 @@ public class ContactCreationTests extends TestBase {
     public void testNewContact() throws Exception {
         app.goTo().homePage();
         Contacts before = app.contact().all();
+        File photo= new File("src/test/resources/stru.png");
         app.goTo().newContactPage();
-        ContactData contact = new ContactData().withFirstname("TestName").withMiddlename("TestMiddle").withLastname("TestName").withNickname("TestNickname").withCompany("TestCompany").withAddress("TestAddress").withHomephone("45654").withMobilephone("654645").withWorkphone("456456").withFaxphone("456546").withGroup("test1");
+        ContactData contact = new ContactData().withFirstname("TestName").withMiddlename("TestMiddle").withLastname("TestName").withNickname("TestNickname").withCompany("TestCompany").withAddress("TestAddress").withHomephone("45654").withMobilephone("654645").withWorkphone("456456").withFaxphone("456546").withGroup("test1").withPhoto(photo);
         app.contact().create(contact);
         assertThat(app.contact().count(), equalTo(before.size() + 1));
         Contacts after = app.contact().all();
