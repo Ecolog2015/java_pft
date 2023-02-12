@@ -17,6 +17,7 @@ dependencies {
     implementation 'ch.qos.logback:logback-classic:1.1.5'
     //для БД MySql
     implementation 'mysql:mysql-connector-java:5.1.48'
+    implementation 'org.hibernate:hibernate-core:5.6.10.Final'
 }
 //указали использовать фреймворк TestNG
 task testGroups(type: Test) {
