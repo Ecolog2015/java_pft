@@ -1,35 +1,64 @@
 package ru.stqa.pft.addressbook.model;
 
 import com.google.gson.annotations.Expose;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
 import java.io.File;
 import java.util.Objects;
 
+@Entity                                 //аннотация объявляет класс ContactData привязанным к БД
+@Table(name = "addressbook")
+
 public class ContactData {
+    @Id
+    @Column(name = "id")
     private int id = Integer.MAX_VALUE;
     @Expose
+    @Column(name = "firstname")
     private String firstname;
     @Expose
+    @Transient
     private String middlename;
     @Expose
+    @Column(name = "lastname")
     private String lastname;
+    @Transient
     private String nickname;
+    @Transient
     private String company;
     @Expose
+    @Type(type = "text")
     private String address;
     @Expose
+    @Transient
     private String email;
+    @Transient
     private String email2;
+    @Transient
     private String email3;
     @Expose
+    @Column(name = "home")
+    @Type(type = "text")
     private String homephone;
+    @Column(name = "mobile")
+    @Type(type = "text")
     private String mobilephone;
+    @Column(name = "work")
+    @Type(type = "text")
     private String workphone;
+
+    @Transient
     private String faxphone;
     @Expose
+    @Transient
     private String group;
-    private File photo;
+    @Column(name = "photo")
+    @Type(type = "text")
+    private String photo;
+    @Transient
     private String allPhones;
+    @Transient
     private String allEmail;
 
     public ContactData withId(int id) {
@@ -107,8 +136,9 @@ public class ContactData {
         return this;
     }
 
+
     public ContactData withPhoto(File photo) {
-        this.photo = photo;
+        this.photo = photo.getPath();
         return this;
     }
 
@@ -123,10 +153,6 @@ public class ContactData {
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getFirstname() {
@@ -192,8 +218,9 @@ public class ContactData {
     public String getAllEmail() {
         return allEmail;
     }
+
     public File getPhoto() {
-        return photo;
+        return new File(photo);
     }
 
     @Override
