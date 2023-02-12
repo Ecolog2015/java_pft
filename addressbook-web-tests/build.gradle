@@ -13,24 +13,25 @@ dependencies {
     implementation 'com.thoughtworks.xstream:xstream:1.4.18'
     //для json
     implementation 'com.google.code.gson:gson:2.10'
+    //для работы с логами
+    implementation 'ch.qos.logback:logback-classic:1.1.5'
+}
+//указали использовать фреймворк TestNG
+task testGroups(type: Test) {
+    useTestNG {
+        suites 'src/test/resources/testng-groups.xml'
+    }
+}
 
-    //указали использовать фреймворк TestNG
-    task testGroups(type: Test) {
-        useTestNG {
-            suites 'src/test/resources/testng-groups.xml'
-        }
+task testContacts(type: Test) {
+    useTestNG {
+        suites 'src/test/resources/testng-contacts.xml'
     }
+}
+if (project.hasProperty('browser')) {
+    systemProperty 'browser', "${browser}"
+}
 
-    task testContacts(type: Test) {
-        useTestNG {
-            suites 'src/test/resources/testng-contacts.xml'
-        }
-    }
-    if (project.hasProperty('browser')) {
-        systemProperty 'browser', "${browser}"
-    }
-
-    if (project.hasProperty('target')) {
-        systemProperty 'browser', "${browser}"
-    }
+if (project.hasProperty('target')) {
+    systemProperty 'browser', "${browser}"
 }
