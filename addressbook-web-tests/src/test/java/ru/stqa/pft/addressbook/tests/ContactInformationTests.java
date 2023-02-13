@@ -17,8 +17,8 @@ public class ContactInformationTests extends TestBase {
     //предусловия теста
     @BeforeMethod
     public void ensurePreconditions() {
-        app.goTo().homePage();
         if (app.contact().all().size() == 0) {
+            app.goTo().homePage();
             app.contact().create(new ContactData().withFirstname("TestName").withMiddlename("TestMiddle").withLastname("TestName").withNickname("TestNickname").withCompany("TestCompany").withAddress("TestAddress").withEmail("email@email.ru").withEmail2("email2@email.ru").withEmail3("email3@email.ru").withHomephone("45654").withMobilephone("654645").withWorkphone("456456").withFaxphone("456546").withGroup("test1"));
         }
     }

@@ -7,7 +7,10 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
+import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.Groups;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ContactHelper extends BaseHelper {
@@ -39,11 +42,12 @@ public class ContactHelper extends BaseHelper {
         type(By.name("mobile"), contactData.getMobilephone());
         type(By.name("work"), contactData.getWorkphone());
         type(By.name("fax"), contactData.getFaxphone());
-        attach(By.name("photo"),contactData.getPhoto());
+        attach(By.name("photo"), contactData.getPhoto());
 
         if (creation) {
-            if (isElementPresent(By.name(contactData.getGroup()))) {                                             //пытаемся выбрать из списка групп элемент
-                new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+            if (contactData.getGroups().size() > 0) {
+                Assert.assertTrue(contactData.getGroups().size() == 1);
+                new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroups().iterator().next().getName());
             } else new Select(wd.findElement(By.name("new_group"))).getFirstSelectedOption();
         } else Assert.assertFalse(isElementPresent(By.name("new_group")));
     }
@@ -148,5 +152,55 @@ public class ContactHelper extends BaseHelper {
 
     public void initContactModificationById(int id) {
         wd.findElement(By.cssSelector(String.format("a[href='edit.php?id=%s']", id))).click();
+    }
+
+    public ContactData findContact(Contacts contacts, Groups groups, boolean add) {
+        List<ContactData> contact = new ArrayList<>(contacts);
+        for (ContactData selectedContact : contact) {
+            List<GroupData> before = new ArrayList<>();
+            for (GroupData group : groups) {
+                if (add) {
+                    if (!group.getContacts().contains(selectedContact)) {
+                        before.add(group);
+                    }
+                }
+                if (group.getContacts().contains(selectedContact)) {
+                    before.add(group);
+                }
+                if (before.size() > 0) {
+
+                    return selectedContact;
+
+                }
+
+            }
+
+        }
+        return null;
+    }
+    public GroupData getGroupData(Groups groups, ContactData selectedContact,boolean add) {
+        GroupData selectedGroup=null;
+
+        if (selectedContact != null && !add) {
+            selectedGroup = findGroup(selectedContact, groups,false);
+
+        } else if (selectedContact != null) {
+            selectedGroup = findGroup(selectedContact, groups,true);
+
+        }
+        return selectedGroup;
+    }
+
+    private GroupData findGroup(ContactData selectedContact, Groups groups,boolean add){
+        for (GroupData group : groups) {
+            if (add){
+                if (!group.getContacts().contains(selectedContact) ) {
+                    return group;
+                }
+            } else if(group.getContacts().contains(selectedContact)) {
+                return group;
+            }
+        }
+        return null;
     }
 }

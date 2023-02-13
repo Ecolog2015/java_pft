@@ -5,7 +5,9 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.File;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity                                 //аннотация объявляет класс ContactData привязанным к БД
 @Table(name = "addressbook")
@@ -60,6 +62,11 @@ public class ContactData {
     private String allPhones;
     @Transient
     private String allEmail;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "address_in_groups",
+            joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
+    private Set<GroupData> groups = new HashSet<GroupData>();
 
     public ContactData withId(int id) {
         this.id = id;
@@ -207,8 +214,12 @@ public class ContactData {
         return faxphone;
     }
 
-    public String getGroup() {
-        return group;
+    public Groups getGroups() {
+        return new Groups(groups);
+    }
+
+    public void setGroups(Set<GroupData> groups) {
+        this.groups = groups;
     }
 
     public String getAllPhones() {

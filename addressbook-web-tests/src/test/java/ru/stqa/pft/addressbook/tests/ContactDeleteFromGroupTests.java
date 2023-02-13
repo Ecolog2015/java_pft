@@ -1,21 +1,21 @@
+
 package ru.stqa.pft.addressbook.tests;
 
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
+import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.Groups;
 
-import java.util.List;
-import java.util.Set;
+public class ContactDeleteFromGroupTests extends TestBase {
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.testng.Assert.assertEquals;
-
-public class ContactDeletionTests extends TestBase {
     @BeforeMethod
     public void ensurePreconditions() {
+        if (app.db().groups().size()== 0) {
+            app.goTo().groupPage();
+            app.group().create(new GroupData().withName("test1"));
+        }
         if (app.db().contacts().size() == 0) {
             app.goTo().homePage();
             app.contact().create(new ContactData().withFirstname("TestName").withMiddlename("TestMiddle").withLastname("TestName").withNickname("TestNickname").withCompany("TestCompany").withAddress("TestAddress").withHomephone("45654").withMobilephone("654645").withWorkphone("456456").withFaxphone("456546").withGroup("test1"));
@@ -23,14 +23,12 @@ public class ContactDeletionTests extends TestBase {
     }
 
     @Test
-    public void testContactDeletion() {
-        app.goTo().homePage();
-        Contacts before = app.db().contacts();
-        ContactData deletedContact = before.iterator().next();
-        app.contact().delete(deletedContact);
-        app.goTo().homePage();
-        assertEquals(app.contact().count(), before.size() - 1);
-        Contacts after = app.db().contacts();
-        assertThat(after, equalTo(before.without(deletedContact)));
+    public void testDeleteContactFromGroup() {
+        Groups groups = app.db().groups();
+        Contacts contacts = app.db().contacts();
+        app.contact().findContact(contacts, groups,false);
+        ContactData selectedContact = app.contact().findContact(contacts, groups,false);
+        GroupData selectedGroup = app.contact().getGroupData(groups, selectedContact,false);
+        verifyContactListInUI();
     }
 }
