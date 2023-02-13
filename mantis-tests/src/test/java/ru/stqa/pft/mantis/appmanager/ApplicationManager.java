@@ -19,6 +19,8 @@ public class ApplicationManager {
     private String browser;
     private RegistrationHelper registrationHelper;
 
+    private FtpHelper ftp;
+
     public ApplicationManager(String browser) throws IOException {
         this.browser = browser;
         properties = new Properties();
@@ -40,7 +42,7 @@ public class ApplicationManager {
         return new HttpSession(this);
     }
 
-    public Object getProperty(String key) {
+    public String getProperty(String key) {
         return properties.getProperty(key);
     }
 
@@ -66,5 +68,10 @@ public class ApplicationManager {
             wd.get(properties.getProperty("web.baseUrl"));
         }
         return wd;
+    }
+    public FtpHelper ftp() {
+        if (ftp == null) {
+            ftp = new FtpHelper(this);
+        } return ftp;
     }
 }
