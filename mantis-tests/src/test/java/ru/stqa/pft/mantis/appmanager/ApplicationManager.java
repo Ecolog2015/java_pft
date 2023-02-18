@@ -22,6 +22,7 @@ public class ApplicationManager {
     private MailHelper mailHelper;
     private JamesHelper jamesHelper;
     private ChangePasswordHelper changePasswordHelper;
+    private SoapHelper soapHelper;
 
     public ApplicationManager(String browser) throws IOException {
         this.browser = browser;
@@ -32,7 +33,6 @@ public class ApplicationManager {
         String target = System.getProperty("target", "local");
         properties.load(new FileReader(String.format("src/test/resources/%s.properties", target)));
     }
-
 
     public void stop() {
         if (wd != null) {
@@ -46,13 +46,6 @@ public class ApplicationManager {
 
     public String getProperty(String key) {
         return properties.getProperty(key);
-    }
-
-    public RegistrationHelper registration() {
-        if (registrationHelper == null) {
-            registrationHelper = new RegistrationHelper(this);
-        }
-        return registrationHelper;
     }
 
     public WebDriver getDriver() {
@@ -70,11 +63,21 @@ public class ApplicationManager {
         }
         return wd;
     }
+
+    public RegistrationHelper registration() {
+        if (registrationHelper == null) {
+            registrationHelper = new RegistrationHelper(this);
+        }
+        return registrationHelper;
+    }
+
     public FtpHelper ftp() {
         if (ftp == null) {
             ftp = new FtpHelper(this);
-        } return ftp;
+        }
+        return ftp;
     }
+
     public MailHelper mail() {
         if (mailHelper == null) {
             mailHelper = new MailHelper(this);
@@ -90,9 +93,16 @@ public class ApplicationManager {
     }
 
     public ChangePasswordHelper changeHelper() {
-        if(changePasswordHelper==null){
+        if (changePasswordHelper == null) {
             changePasswordHelper = new ChangePasswordHelper(this);
         }
         return changePasswordHelper;
+    }
+
+    public SoapHelper soap() {
+        if (soapHelper == null) {
+            soapHelper = new SoapHelper(this);
+        }
+        return soapHelper;
     }
 }

@@ -16,11 +16,9 @@ import java.util.stream.Collectors;
 
 public class JamesHelper {
     private ApplicationManager app;
-
     private TelnetClient telnet;
     private InputStream in;
     private PrintStream out;
-
     private Session mailSession;
     private Store store;
     private String mailServer;
@@ -132,14 +130,16 @@ public class JamesHelper {
         long now = System.currentTimeMillis();
         while (System.currentTimeMillis() < now + timeout) {
             List<MailMessage> allMail = getAllMail(usermane, password);
-            if(allMail.size() > 0){
+            if (allMail.size() > 0) {
                 return allMail;
-            } try {
+            }
+            try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        } throw new Error("No mail :(");
+        }
+        throw new Error("No mail :(");
     }
 
     public List<MailMessage> getAllMail(String username, String password) throws MessagingException {

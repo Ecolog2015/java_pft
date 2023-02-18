@@ -4,8 +4,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public class RegistrationHelper extends HelperBase{
-    private String username;
-
     public RegistrationHelper(ApplicationManager app) {
         super(app);
     }

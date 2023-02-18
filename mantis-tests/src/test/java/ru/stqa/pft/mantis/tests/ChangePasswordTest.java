@@ -13,11 +13,11 @@ import java.util.List;
 
 import static org.testng.Assert.assertTrue;
 
-public class ChangePasswordTest extends TestBase{
+public class ChangePasswordTest extends TestBase {
 
 
     @BeforeMethod
-    public void startMailServer(){
+    public void startMailServer() {
         app.mail().start();
     }
 
@@ -37,13 +37,15 @@ public class ChangePasswordTest extends TestBase{
         assertTrue(app.newSession().login(user, password));
 
     }
+
     private String findConfirmationLink(List<MailMessage> mailMessages, String email) {
         MailMessage mailMessage = mailMessages.stream().filter((m) -> m.to.equals(email)).findFirst().get();
         VerbalExpression regex = VerbalExpression.regex().find("http://").nonSpace().oneOrMore().build();
         return regex.getText(mailMessage.text);
     }
+
     @AfterMethod(alwaysRun = true)
-    public void stopMailServer(){
+    public void stopMailServer() {
         app.mail().stop();
     }
 }

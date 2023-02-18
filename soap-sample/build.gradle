@@ -1,0 +1,30 @@
+apply plugin: 'java'
+apply plugin: 'application'
+
+repositories {
+    mavenCentral()
+}
+dependencies {
+    compile 'org.testng:testng:6.9.10'
+    implementation 'javax.xml.ws:jaxws-api:2.3.1'
+    implementation 'com.sun.xml.ws:jaxws-ri:2.3.3'
+    implementation 'jakarta.xml.ws:jakarta.xml.ws-api:4.0.0'
+}
+
+
+buildscript {
+    repositories {
+        gradlePluginPortal()
+    }
+    dependencies {
+        classpath 'com.yupzip:wsdl2java:2.3.2'
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'com.yupzip.wsdl2java'
+
+wsdl2java {
+    wsdlDir = file("src/main/resources")
+    wsdlsToGenerate = [["$projectDir/src/main/resources/ipservice.wsdl"]]
+}

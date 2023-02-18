@@ -14,9 +14,10 @@ import org.apache.http.util.EntityUtils;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 public class HttpSession {
-    private CloseableHttpClient httpclient;
-    private ApplicationManager app;
+    private final CloseableHttpClient httpclient;
+    private final ApplicationManager app;
 
     public HttpSession(ApplicationManager app) {
         this.app = app;
@@ -43,10 +44,8 @@ public class HttpSession {
     }
 
     private String geTextFrom(CloseableHttpResponse response) throws IOException {
-        try {
+        try (response) {
             return EntityUtils.toString(response.getEntity());
-        } finally {
-            response.close();
         }
     }
 
