@@ -1,14 +1,10 @@
 apply plugin: 'java'
 apply plugin: 'application'
-mainClassName = 'MyFirstProgram'
 
 repositories {
     mavenCentral()
 }
 dependencies {
     compile 'org.testng:testng:6.9.10'
-}
-
-test{
-    useTestNG()
+    implementation 'com.jcabi:jcabi-github:1.4.2'
 }
