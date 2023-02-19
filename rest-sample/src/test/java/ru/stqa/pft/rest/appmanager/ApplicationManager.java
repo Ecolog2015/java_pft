@@ -19,10 +19,7 @@ public class ApplicationManager {
         properties = new Properties();
     }
 
-    public String getProperty(String key) {
-        return properties.getProperty(key);
-    }
-
+    public String getProperty(String key) {        return properties.getProperty(key);    }
     public RestHelper rest() {
         if (restHelper == null) {
             restHelper = new RestHelper(this);
