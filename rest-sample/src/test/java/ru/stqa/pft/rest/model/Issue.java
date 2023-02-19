@@ -6,11 +6,6 @@ public class Issue {
     private int id;
     private String subject;
     private String description;
-    private String status;
-
-    public int getId() {
-        return id;
-    }
 
     public Issue withId(int id) {
         this.id = id;
@@ -29,16 +24,9 @@ public class Issue {
     public String getDescription() {
         return description;
     }
+
     public Issue withDescription(String description) {
         this.description = description;
-        return this;
-    }
-    public String getStatus() {
-        return status;
-    }
-
-    public Issue withStatus(String status) {
-        this.status = status;
         return this;
     }
 
