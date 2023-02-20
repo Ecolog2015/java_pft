@@ -34,7 +34,7 @@ public class RestAssuredTests extends TestBase {
 
     private Set<Issue> getIssues() {
 
-        String json= RestAssured.get("https://bugify.stqa.ru/api/issues.json?limit=100").asString();
+        String json= RestAssured.get("https://bugify.stqa.ru/api/issues.json?limit=500").asString();
         JsonElement parsed = JsonParser.parseString(json);
         JsonElement issues = parsed.getAsJsonObject().get("issues");
 
