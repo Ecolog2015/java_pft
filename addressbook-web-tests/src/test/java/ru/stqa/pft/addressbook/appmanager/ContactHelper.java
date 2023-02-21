@@ -95,10 +95,6 @@ public class ContactHelper extends BaseHelper {
         submitDeletionContact();
     }
 
-    public boolean isThereAContact() {
-        return isElementPresent(By.name("selected[]")); //проверка наличия хоть 1 контакта
-    }
-
     public int count() {
         return wd.findElements(By.name("entry")).size();
     }
@@ -154,53 +150,52 @@ public class ContactHelper extends BaseHelper {
         wd.findElement(By.cssSelector(String.format("a[href='edit.php?id=%s']", id))).click();
     }
 
-    public ContactData findContact(Contacts contacts, Groups groups, boolean add) {
-        List<ContactData> contact = new ArrayList<>(contacts);
-        for (ContactData selectedContact : contact) {
-            List<GroupData> before = new ArrayList<>();
-            for (GroupData group : groups) {
-                if (add) {
-                    if (!group.getContacts().contains(selectedContact)) {
-                        before.add(group);
-                    }
-                }
-                if (group.getContacts().contains(selectedContact)) {
-                    before.add(group);
-                }
-                if (before.size() > 0) {
-
-                    return selectedContact;
-
-                }
-
-            }
-
-        }
-        return null;
-    }
-    public GroupData getGroupData(Groups groups, ContactData selectedContact,boolean add) {
-        GroupData selectedGroup=null;
-
-        if (selectedContact != null && !add) {
-            selectedGroup = findGroup(selectedContact, groups,false);
-
-        } else if (selectedContact != null) {
-            selectedGroup = findGroup(selectedContact, groups,true);
-
-        }
-        return selectedGroup;
+    public void addToGroup(ContactData toBeAddContact, GroupData group) {
+        selectContactById(toBeAddContact.getId());
+        wd.findElement(By.name("to_group")).click();
+        new Select(wd.findElement(By.name("to_group"))).selectByValue(String.valueOf(group.getId()));
+        wd.findElement(By.name("add")).click();
+        wd.findElement(By.cssSelector("div.msgbox"));
     }
 
-    private GroupData findGroup(ContactData selectedContact, Groups groups,boolean add){
+    public void deleteContactFromGroup(ContactData contact, GroupData group) {
+        new Select(wd.findElement(By.name("group"))).selectByValue(String.valueOf(group.getId()));
+        selectContactById(contact.getId());
+        wd.findElement(By.name("remove")).click();
+        wd.findElement(By.cssSelector("div.msgbox"));
+    }
+
+    public boolean groupExists(Groups groups, String name) {
         for (GroupData group : groups) {
-            if (add){
-                if (!group.getContacts().contains(selectedContact) ) {
-                    return group;
-                }
-            } else if(group.getContacts().contains(selectedContact)) {
+            if (group.getName().equalsIgnoreCase(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean contactsExists(Groups groups, String name) {
+        for (GroupData group : groups) {
+            if (group.getName().equalsIgnoreCase(name) && group.getContacts().size() > 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public GroupData getGroupByName(Groups groups, String name) {
+        for (GroupData group : groups) {
+            if (group.getName().equalsIgnoreCase(name)) {
                 return group;
             }
         }
         return null;
+    }
+    public boolean contactWithoutGroupExists(Contacts contacts, String name) {
+        for (ContactData contact : contacts) {
+            if (groupExists(contact.getGroups(), name)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
