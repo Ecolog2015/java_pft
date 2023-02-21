@@ -73,15 +73,8 @@ public class GroupHelper extends BaseHelper {
         returnToGroupPage();
     }
 
-    public boolean isThereAGroup() {
-        return isElementPresent(By.name("selected[]")); //проверка наличия хоть 1 группы
-    }
-
     public int count() {
         return wd.findElements(By.name("selected[]")).size();
-    }
-    public boolean theGroupExists() {
-        return isElementPresent(By.name("test1"));
     }
 
     public Groups all() {
@@ -96,5 +89,14 @@ public class GroupHelper extends BaseHelper {
             groupCache.add(new GroupData().withId(id).withName(name));
         }
         return new Groups(groupCache);
+    }
+
+    public boolean groupExists(Groups groups, String name) {
+        for (GroupData group : groups) {
+            if (group.getName().equalsIgnoreCase(name)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
