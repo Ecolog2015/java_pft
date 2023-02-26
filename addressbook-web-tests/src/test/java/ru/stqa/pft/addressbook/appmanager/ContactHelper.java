@@ -173,6 +173,7 @@ public class ContactHelper extends BaseHelper {
         }
         return false;
     }
+
     public boolean contactsExists(Groups groups, String name) {
         for (GroupData group : groups) {
             if (group.getName().equalsIgnoreCase(name) && group.getContacts().size() > 0) {
@@ -192,10 +193,18 @@ public class ContactHelper extends BaseHelper {
     }
     public boolean contactWithoutGroupExists(Contacts contacts, String name) {
         for (ContactData contact : contacts) {
-            if (groupExists(contact.getGroups(), name)) {
+            if (!groupExists(contact.getGroups(), name)) {
                 return true;
             }
         }
         return false;
+    }
+    public  ContactData selectContactId (Contacts contacts, String name) {
+        for (ContactData contact : contacts) {
+            if (!groupExists(contact.getGroups(), name)) {
+                return contact;
+            }
+        }
+        return null;
     }
 }
